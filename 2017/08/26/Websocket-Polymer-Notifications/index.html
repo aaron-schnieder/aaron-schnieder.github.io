@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="aaros.io">
+    <title>Websocket Polymer Notifications - aaros.io</title>
+    <meta name="author" content="Aaron Schnieder">
+    
+    
+    
+    <meta name="description" content="title: Websocket Polymer Notificationsdate: 2017-08-26 19:49:39 tags: polymer,websockets,custom elements,javascriptReal time notifications are critical for many business needs. Getting important info">
+<meta name="keywords" content="polymer,websockets,custom-elements">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Websocket Polymer Notifications">
+<meta property="og:url" content="http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/index.html">
+<meta property="og:site_name" content="aaros.io">
+<meta property="og:description" content="title: Websocket Polymer Notificationsdate: 2017-08-26 19:49:39 tags: polymer,websockets,custom elements,javascriptReal time notifications are critical for many business needs. Getting important info">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/7zuqCa8.png">
+<meta property="og:image" content="https://www.pubnub.com/wp-content/uploads/2014/09/WebSockets-Diagram.png">
+<meta property="og:image" content="https://i.imgur.com/ZkQTDqe.png">
+<meta property="og:updated_time" content="2017-08-27T03:14:08.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Websocket Polymer Notifications">
+<meta name="twitter:description" content="title: Websocket Polymer Notificationsdate: 2017-08-26 19:49:39 tags: polymer,websockets,custom elements,javascriptReal time notifications are critical for many business needs. Getting important info">
+<meta name="twitter:image" content="https://i.imgur.com/7zuqCa8.png">
+<meta name="twitter:creator" content="@schnieds">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">aaros.io</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/aaron-schnieder" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">Github</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://twitter.com/schnieds" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Websocket Polymer Notifications
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-08-26T20:12:58-07:00">
+	
+		    Aug 26, 2017
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <hr>
+<p>title: Websocket Polymer Notifications<br>date: 2017-08-26 19:49:39</p>
+<h2 id="tags-polymer-websockets-custom-elements-javascript"><a href="#tags-polymer-websockets-custom-elements-javascript" class="headerlink" title="tags: polymer,websockets,custom elements,javascript"></a>tags: polymer,websockets,custom elements,javascript</h2><p>Real time notifications are critical for many business needs. Getting important information in real time so you can take quick action can make a big impact on your business and be the difference between happy customers and unhappy customers. There are many options for real time notifications if you have internet and/or cellular connectivity: Web Push Notifications, SMS messaging, native app alerts and even email. But what do you do in an on-prem offline scenario? What happens if you lose internet connectivity and cellular connects? Getting real time alerts is still critical… so here is a solution to the problem.</p>
+<h2 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h2><p>So let’s summarize the requirements for our scenario.</p>
+<ol>
+<li>Real time notifications, alerts and warnings</li>
+<li>Runs in a disconnected / offline environment (no internet / cellular dependencies)</li>
+<li>Server side runs on any platform (Windows, Linux, etc.)</li>
+<li>Client side runs in any browser and on modern devices (iOS, Android, etc.)</li>
+<li>Ability to view history of notifications</li>
+</ol>
+<p><img src="https://i.imgur.com/7zuqCa8.png" alt="Notifications Web App"></p>
+<h2 id="Solution-tech"><a href="#Solution-tech" class="headerlink" title="Solution tech"></a>Solution tech</h2><p>I wanted to make sure this solution was lightweight and as browser compatible as possible. So I went with the following underlying technologies:</p>
+<ul>
+<li>Polymer 2</li>
+<li>Websockets</li>
+<li>ASP.NET core</li>
+<li>Sqlite</li>
+</ul>
+<p>Let’s go through each quickly.</p>
+<h3 id="Polymer-2"><a href="#Polymer-2" class="headerlink" title="Polymer 2"></a>Polymer 2</h3><p>Anyone who as done any front end web development knows how quickly frameworks come in and out of favor in the JavaScript world. There’s Knockout, Angular, React, Preact, VueJs, etc… just to name a few. The problem with all of them? The code you write is proprietary to the framework, which means if you ever want to use another framework or library, it is a lot of re-write. Thankfully new HTML/ECMAScript specs have added all of the functionality we need to build rich, component based web apps using web standard code. <em>No proprietary lock in!</em> Polymer 2 supports this wholeheartedly and just adds some unobtrusive sugar on top of the standards. #UseThePlatform. <a href="https://www.polymer-project.org/about" target="_blank" rel="external">Read more about it at the Polymer 2 site.</a></p>
+<h3 id="Websockets"><a href="#Websockets" class="headerlink" title="Websockets"></a>Websockets</h3><p>There are a number of options for communicating updates to a web app. </p>
+<p>There is <strong>long polling</strong>, which is a basically a loop in the browser to call a back-end API to check for new notifications on a specified time interval. Long polling has a huge disadvantage of having to guess how often you need to check for notifications. Checking very frequently is going to result in a lot of API calls. Checking less often introduces a lag been a notification (maybe a critical alert) coming in and someone seeing it. Not good.</p>
+<p><a href="https://developers.google.com/web/fundamentals/engage-and-retain/push-notifications/" target="_blank" rel="external"><strong>Web Push Notifications</strong></a> are pretty awesome. You get real time notifications, queuing if the receiving browser is offline and an opt-in experience for the user. The issue here is that you need a messaging server to act as an intermediary to store the notifications and deliver them when the receiving web app is online. This breaks our requirement of creating a disconnected real time notifications platform.</p>
+<p>So let’s talk <strong>Websockets</strong>. </p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API" target="_blank" rel="external">Websockets</a> create an open communication session between a browser and a server. This means our web app can receive event-driven notifications from the server in real time with no polling.</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API#Browser_compatibility" target="_blank" rel="external">Browser compatibility</a> for the standards version (v13, RFC 6455) is great across the board (even IE11).</li>
+<li>Multiple web apps can be open all will establish a separate web socket to our server, ensuring all web apps receive our notifications.</li>
+<li>There are no internet requirements and we can host our web app and web sockets API in a disconnected on-prem environment.</li>
+<li>There is no queuing mechanism, so if the web app isn’t open when a notification is triggered, it will not receive it.</li>
+</ul>
+<p>For our needs Websockets solves all of our problems and we can live with the requirement of having the web app open to receive notifications.</p>
+<p>Here is a nice diagram showing the basic overview of Websocket communication (credit to <a href="https://www.pubnub.com/blog/2015-01-05-websockets-vs-rest-api-understanding-the-difference/" target="_blank" rel="external">PubNub</a> for the diagram).</p>
+<p><img src="https://www.pubnub.com/wp-content/uploads/2014/09/WebSockets-Diagram.png" alt="Websocket communication diagram"></p>
+<h3 id="ASP-NET-Core"><a href="#ASP-NET-Core" class="headerlink" title="ASP.NET Core"></a>ASP.NET Core</h3><p>You could write the server side API for notifications in anything really. Node would be a great choice, but I wanted to go with ASP.NET Core as it has some nice built in APIs for working with Websockets.</p>
+<p>I specifically chose <a href="https://docs.microsoft.com/en-us/aspnet/core/" target="_blank" rel="external">ASP.NET Core</a> because it runs on any OS and has a number of advantages over the full .NET Framework.</p>
+<ul>
+<li>Ability to build and run on Windows, macOS, and Linux.</li>
+<li>Lightweight, high-performance, and modular HTTP request pipeline.</li>
+<li>Open-source and community-focused.</li>
+</ul>
+<h3 id="SQLite"><a href="#SQLite" class="headerlink" title="SQLite"></a>SQLite</h3><p><a href="https://www.sqlite.org/" target="_blank" rel="external">SQLite</a> is a very nice open source, lightweight, portable SQL based database engine. It is incredible small, can be used in embedded environments and has a lot of nice features. It also plays very nicely with ASP.NET Core as well as Node.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">Note: this isn&apos;t going to scale. The example app deploys a new instances of the SQLite DB for notifications to each server side API instance. In production, I recommend you use a shared persistence store. No real need for a relational DB here either, so a NoSQL solution like an on-prem MongoDB might be a better fit.</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h2 id="Solution-architecture"><a href="#Solution-architecture" class="headerlink" title="Solution architecture"></a>Solution architecture</h2><p>So our solution architecture is pretty straight forward. </p>
+<h3 id="Web-Server"><a href="#Web-Server" class="headerlink" title="Web Server"></a>Web Server</h3><p>We have a web server, which will deliver our Polymer 2 <a href="https://en.wikipedia.org/wiki/Single-page_application" target="_blank" rel="external">SPA</a> web app to the client’s browser.</p>
+<h3 id="Web-app"><a href="#Web-app" class="headerlink" title="Web app"></a>Web app</h3><p> The client’s browser will talk to our ASP.NET Core API, opening a web socket for real time notifications and sending RESTful HTTP requests to get notification history.</p>
+<h3 id="Server-side-API"><a href="#Server-side-API" class="headerlink" title="Server side API"></a>Server side API</h3><p>Our ASP.NET Core API will expose three APIs:</p>
+<ol>
+<li>Websockets endpoints for real time notifications</li>
+<li>RESTful GET endpoint to retrieve historical notifications</li>
+<li>RESTful POST endpoint to accept incoming notifications that need to be communicated to listening web app clients</li>
+</ol>
+<p>Our server side API will store all incoming notifications in SQLite and then broadcast them out via open web sockets to any client browsers that are listening.</p>
+<p><img src="" alt="Solution architecture diagram"></p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>All of the code for this app is in github at <a href="https://github.com/aaron-schnieder/websocket-notifications" target="_blank" rel="external">https://github.com/aaron-schnieder/websocket-notifications</a>. </p>
+<h3 id="Websockets-server-side-API"><a href="#Websockets-server-side-API" class="headerlink" title="Websockets server side API"></a>Websockets server side API</h3><p>I won’t go through the basic plumbing code (models, etc.) but lets take a look at the key parts.</p>
+<h4 id="Program-cs"><a href="#Program-cs" class="headerlink" title="Program.cs"></a>Program.cs</h4><p>Program.cs is the entry point into our server side API that kicks of initialization. One of the key things to pay attention to is UseUrls. Make sure you don’t use “<a href="http://localhost" target="_blank" rel="external">http://localhost</a> or <a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a>“ or you will run into issues if you deploy this API in a docker container. You want to make sure that the app binds to whatever local network address the API is hosted on.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var host = new WebHostBuilder()</div><div class="line">    .UseKestrel()</div><div class="line">    .UseContentRoot(Directory.GetCurrentDirectory())</div><div class="line">    .UseIISIntegration()</div><div class="line">    .UseStartup&lt;Startup&gt;()</div><div class="line">    .UseUrls(&quot;http://*:8081&quot;) // make sure this is NOT localhost, 127.0.0.1, etc.</div><div class="line">    .UseApplicationInsights()</div><div class="line">    .Build();</div></pre></td></tr></table></figure>
+<h4 id="Startup-cs"><a href="#Startup-cs" class="headerlink" title="Startup.cs"></a>Startup.cs</h4><p>Startup.cs is the class that instantiates Websockets, SQLite and ASP.NET Web Api.</p>
+<p><strong>Websockets init</strong><br>All of the Websockets init happens in the Configure method, which configures the HTTP request pipeline. Notice we are instantiating the use of a custom websockets middleware class.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/* WebSockets init options */</div><div class="line">var webSocketOptions = new WebSocketOptions()</div><div class="line">&#123;</div><div class="line">    KeepAliveInterval = TimeSpan.FromSeconds(120),</div><div class="line">    ReceiveBufferSize = 4096</div><div class="line">&#125;;</div><div class="line"></div><div class="line">/* Register the use of web sockets in this app */</div><div class="line">app.UseWebSockets(webSocketOptions);</div><div class="line"></div><div class="line">/* Use custom aspnet core middleware to instantiate the web sockets */</div><div class="line">app.UseMiddleware&lt;WebSocketsMiddleware&gt;();</div></pre></td></tr></table></figure>
+<p><strong>SQLite instantiation</strong><br>We need a couple of calls to init SQLite.</p>
+<p>In the constructor…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// Create SQLite DB if it doesn&apos;t exist</div><div class="line">using (var client = new NotificationsContext())</div><div class="line">&#123;</div><div class="line">    client.Database.EnsureCreated();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>And then in the ConfigureServices method…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// Configure the SQLite DB</div><div class="line">services.AddEntityFrameworkSqlite().AddDbContext&lt;NotificationsContext&gt;();</div></pre></td></tr></table></figure></p>
+<p><strong>CORS</strong><br>We want to <strong>bypass CORS during local development</strong> so we can send browser HTTP requests from localhost. Notice I wrapped the allow all CORS policy in a compiler DEBUG statement so this doesn’t make it into production.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#if DEBUG</div><div class="line">    // Create an open CORS policy ** DON&apos;T PUT THIS IN PRODUCTION **</div><div class="line">    services.AddCors(o =&gt; o.AddPolicy(&quot;AllAllPolicy&quot;, builder =&gt;</div><div class="line">    &#123;</div><div class="line">        builder.AllowAnyOrigin()</div><div class="line">                .AllowAnyMethod()</div><div class="line">                .AllowAnyHeader();</div><div class="line">    &#125;));</div><div class="line">#endif</div></pre></td></tr></table></figure>
+<h4 id="WebSocketsMiddleware-cs"><a href="#WebSocketsMiddleware-cs" class="headerlink" title="WebSocketsMiddleware.cs"></a>WebSocketsMiddleware.cs</h4><p>Our custom middleware class gives us a handler that is invoked every time an HTTP request is processed. This allows us to intercept requests using the Websockets protocol and open a web socket communication channel with client web apps.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">// we want to listen on a specific path for websocket communications</div><div class="line">if (context.Request.Path == &quot;/notifications/ws&quot;)</div><div class="line">&#123;</div><div class="line">    // make sure the request is a websocket request</div><div class="line">    if (context.WebSockets.IsWebSocketRequest)</div><div class="line">    &#123;</div><div class="line">        currentSocket = await context.WebSockets.AcceptWebSocketAsync();</div><div class="line">        currentSubscriberId = NotificationManager.Instance.AddSubscriber(currentSocket);</div><div class="line"></div><div class="line">        // keep the socket open until we get a cancellation request</div><div class="line">        while (true)</div><div class="line">        &#123;</div><div class="line">            if (ct.IsCancellationRequested)</div><div class="line">            &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    else // return an HTTP bad request status code if anything other a web socket request is made on this URI</div><div class="line">    &#123; </div><div class="line">        context.Response.StatusCode = 400;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="NotificationsController-cs"><a href="#NotificationsController-cs" class="headerlink" title="NotificationsController.cs"></a>NotificationsController.cs</h4><p>The NotificationsController contains our RESTful APIs.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// GET api/notifications</div><div class="line">[HttpGet]</div><div class="line">public ActionResult Get() &#123;....&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// POST api/notifications</div><div class="line">[HttpPost]</div><div class="line">public async Task&lt;ActionResult&gt; Post([FromBody]Notification notification)</div></pre></td></tr></table></figure>
+<h4 id="NotificationManager-cs"><a href="#NotificationManager-cs" class="headerlink" title="NotificationManager.cs"></a>NotificationManager.cs</h4><p>NotificationManager keeps track of notification subscribers and sends notifications when they are received.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// sends a notification to all subscribers</div><div class="line">public async Task SendNotificationAsync(Notification notification)</div><div class="line">&#123;</div><div class="line">    // add the notification to the persistence store</div><div class="line">    await PersistenceManager.Instance.AddNotificationAsync(notification);</div><div class="line"></div><div class="line">    // send the notification to all subscribers</div><div class="line">    foreach (var s in _subscribers)</div><div class="line">    &#123;</div><div class="line">        if (s.Value.State == WebSocketState.Open)</div><div class="line">        &#123;</div><div class="line">            var jsonNotification = JsonConvert.SerializeObject(notification);</div><div class="line">            await SendStringAsync(s.Value, jsonNotification);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">Note: another scalability item to point out here. For production workloads, this function should just write the notification out to a queue. A separate worker process should be running to process messages from the queue, persist the notifications and send them to subscribers. As implemented in this example, the solution is ripe for data loss.</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h3 id="Web-app-1"><a href="#Web-app-1" class="headerlink" title="Web app"></a>Web app</h3><p>There is a lot to look at in the web app, especially if you aren’t familiar with <a href="http://es6-features.org" target="_blank" rel="external">ES6</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Custom_Elements" target="_blank" rel="external">Custom Elements</a>. Don’t worry though, it is pretty straight forward once you get into it. I suggest you start with some <a href="https://www.polymer-project.org/2.0/start/toolbox/set-up" target="_blank" rel="external">helpful tutorials on Polymer 2</a>.</p>
+<p>So lets just look at the important stuff specific to the Websocket based notifications. I am not going to cover all of the components in the web app, but I encourage you to look through the code to see how the components are implemented if you are interested.</p>
+<h4 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h4><p>I added a config value for the path to the API URI to the global Polymer variable. You will need to change this to point to your local or deployed Notifications API server URI.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">window.Polymer = &#123;</div><div class="line">    rootPath: &apos;/&apos;,</div><div class="line">    apiRoot: &apos;localhost:8081&apos; // change this to your Notifications API server URI</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="my-notifications-html"><a href="#my-notifications-html" class="headerlink" title="my-notifications.html"></a>my-notifications.html</h4><p>The constructor for this custom element spins up the web socket connection to the server side Notifications API.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// set the protocol and path for the Notifications API URI</div><div class="line">var protocol = location.protocol === &quot;https:&quot; ? &quot;wss:&quot; : &quot;ws:&quot;;</div><div class="line">var wsUri = protocol + &quot;//&quot; + Polymer.apiRoot + &quot;/notifications/ws&quot;;</div><div class="line"></div><div class="line">// create a new websocket using the URI</div><div class="line">var socket = new WebSocket(wsUri);</div><div class="line"></div><div class="line">// open a web socket</div><div class="line">socket.onopen = e =&gt; &#123;</div><div class="line">    this.$.connectionStatusToast.text = &quot;Server connection opened successfully.&quot;;</div><div class="line">    this.$.connectionStatusToast.open();</div><div class="line">    console.log(&quot;socket opened&quot;, e);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>We also register a handler for incoming messages.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// handle new messages received over the websocket</div><div class="line">socket.onmessage = this._notificationReceived.bind(this);</div></pre></td></tr></table></figure>
+<p>And our handler for notifications…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// handler function when notifications are received</div><div class="line">_notificationReceived(e) &#123;</div><div class="line"></div><div class="line">    // parse the message received</div><div class="line">    let notification = JSON.parse(e.data);</div><div class="line"></div><div class="line">    try &#123;</div><div class="line">        // parse the message in the notification to JSON</div><div class="line">        let messageJson = JSON.parse(notification.message);</div><div class="line">        notification.message = messageJson;</div><div class="line">    &#125; catch(exception) &#123;</div><div class="line">        console.log(&quot;Error parsing notification message: &quot; + exception);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // add the notification to the notifications array</div><div class="line">    this.push(&apos;notifications&apos;, notification);</div><div class="line"></div><div class="line">    // set the curentNotification to bring up the toast message</div><div class="line">    this.set(&apos;currentNotification&apos;, notification);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="POSTing-websocket-notifications-on-localhost"><a href="#POSTing-websocket-notifications-on-localhost" class="headerlink" title="POSTing websocket notifications on localhost"></a>POSTing websocket notifications on localhost</h2><p>After you git clone the repo with the code, its pretty easy to fire things up and test them out.</p>
+<h3 id="Notifications-API"><a href="#Notifications-API" class="headerlink" title="Notifications API"></a>Notifications API</h3><p>To run the Notifications API locally, just do the following.</p>
+<ol>
+<li>Install <a href="https://www.microsoft.com/net/download/core" target="_blank" rel="external">.NET Core</a></li>
+<li>Open NotificationsApi/NotificationsApi.sln with Visual Studio 2017</li>
+<li>Build -&gt; Build Solution</li>
+<li>Debug -&gt; Start Debugging</li>
+<li>You should see a browser open up to <a href="http://localhost:8081/api/notifications" target="_blank" rel="external">http://localhost:8081/api/notifications</a></li>
+</ol>
+<h3 id="Web-app-2"><a href="#Web-app-2" class="headerlink" title="Web app"></a>Web app</h3><p>To run the web app locally and connect to your local websockets notifications API…</p>
+<ol>
+<li>Open a command shell or powershell or terminal window</li>
+<li>cd into the directory you cloned the repo</li>
+<li>cd webapp</li>
+<li>bower install</li>
+<li>polymer serve</li>
+<li>You should receive a URI after running polymer serve, open that up in Chrome</li>
+<li>After you open the web app in Chrome, you should see a toast message pop up letting you know a web socket was connected successfully</li>
+</ol>
+<h3 id="Postman-to-POST-notifications"><a href="#Postman-to-POST-notifications" class="headerlink" title="Postman to POST notifications"></a>Postman to POST notifications</h3><p>If you don’t use <a href="https://www.getpostman.com/" target="_blank" rel="external">Postman</a>, you should. Open up Postman and create a new tab with the following configuration:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">URI: http://localhost:8081/api/notifications</div><div class="line">HTTP Method: POST</div><div class="line">Body: raw JSON(application/json)</div><div class="line">&#123;</div><div class="line">  &quot;id&quot;: 128,</div><div class="line">  &quot;timestamp&quot;: &quot;2017-08-01T16:29:34+00:00&quot;,</div><div class="line">  &quot;type&quot;: &quot;error&quot;,</div><div class="line">  &quot;message&quot;: &quot;&#123;\&quot;errorCode\&quot;:20,\&quot;description\&quot;:\&quot;Device has failed!!!\&quot;&#125;&quot;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>You can change the type in the JSON body to warning, information or error and the color of the toast notifications will change accordingly.</p>
+<p><img src="https://i.imgur.com/ZkQTDqe.png" alt="Postman example"></p>
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/polymer-websockets-custom-elements/">polymer,websockets,custom-elements</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/26/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Aaron Schnieder. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/26/hello-world/" data-tooltip="Hello World">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <h4 id="about-card-name">Aaron Schnieder</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://aaros.io/2017/08/26/hello-world/">
+                            <h3 class="media-heading">Hello World</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 26, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://aaros.io/2017/08/26/Websocket-Polymer-Notifications/">
+                            <h3 class="media-heading">Websocket Polymer Notifications</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Aug 26, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                2 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover-v1.2.0.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>
